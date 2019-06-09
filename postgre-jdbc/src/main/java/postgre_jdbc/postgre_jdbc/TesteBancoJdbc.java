@@ -7,6 +7,8 @@ import org.junit.Test;
 import conexaojdbc.SingleConnection;
 import dao.ClienteDAO;
 import model.Cliente;
+import dao.TelefoneDAO;
+import model.Telefone;;
 
 
 public class TesteBancoJdbc {
@@ -36,7 +38,7 @@ public class TesteBancoJdbc {
 	}
 	
 	@Test
-	public void BuscarPorId() {
+	public void BuscarClientePorId() {
 		
 		Cliente cliente = new ClienteDAO().Buscar(1L);
 		
@@ -46,7 +48,7 @@ public class TesteBancoJdbc {
 	}
 	
 	@Test
-	public void Atualizar() {
+	public void AtualizarCliente() {
 		
 		Cliente cliente = new Cliente();
 		ClienteDAO clienteDao = new ClienteDAO();
@@ -63,7 +65,7 @@ public class TesteBancoJdbc {
 			
 	}
 	@Test
-	public void Deletar() {
+	public void DeletarCliente() {
 		
 		ClienteDAO clienteDao = new ClienteDAO();
 		
@@ -72,6 +74,77 @@ public class TesteBancoJdbc {
 		System.out.println("Deletou com Sucesso");
 		
 	}
+	
+	
+	
+	@Test
+	public void NovoTelefone() {
+		Cliente cliente = new Cliente();
+		
+		cliente = new ClienteDAO().Buscar(1L);
+		
+		Telefone Telefone = new Telefone();
+		TelefoneDAO TelefoneDao = new TelefoneDAO();
+		
+		Telefone.setClienteId(cliente.getId());
+		Telefone.setNumero("99504253");
+		Telefone.setTipo("Cel");
+		
+		TelefoneDao.salvar(Telefone);
+	
+	}
+
+	@Test
+	public void ExibirTodosTelefones() {
+		
+		List<Telefone> list = new TelefoneDAO().selecionar();
+		
+		for (Telefone Telefone : list) {
+			System.out.println(Telefone);
+		}
+			
+	}
+	
+	@Test
+	public void BuscarTelefonePorId() {
+		
+		Telefone Telefone = new TelefoneDAO().Buscar(2L);
+		
+		System.out.println(Telefone);
+		
+			
+	}
+	
+	@Test
+	public void AtualizarTelefone() {
+		
+		Telefone Telefone = new Telefone();
+		TelefoneDAO TelefoneDao = new TelefoneDAO();
+		
+		Telefone.setId(1L);
+		Telefone.setNumero("98987645");
+		Telefone.setTipo("Res");
+		Telefone.setClienteId(2L);
+		
+		
+		TelefoneDao.Atualizar(Telefone);
+		
+		System.out.println("ok");
+		
+			
+	}
+	@Test
+	public void DeletarTelefone() {
+		
+		TelefoneDAO TelefoneDao = new TelefoneDAO();
+		
+		TelefoneDao.Deletar(4L);
+		
+		System.out.println("Deletou com Sucesso");
+		
+	}
+	
+	
 	
 	
 }
